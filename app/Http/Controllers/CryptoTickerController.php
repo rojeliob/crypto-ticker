@@ -27,8 +27,14 @@ class CryptoTickerController extends Controller
     public function getCryptos()
     {
         $client = new Client();
-        $apiUrl = 'https://api.coincap.io/v2/assets';
-        $response = $client->get($apiUrl);
+
+        $response = $client->request('GET', 'https://api.coincap.io/v2/assets', [
+            'query' => [
+                'limit' => 10,
+                'sort' => 'percentChange24hr',
+                'direction' => 'desc',
+            ],
+        ]);
 
         return json_decode($response->getBody(), true);
     }
