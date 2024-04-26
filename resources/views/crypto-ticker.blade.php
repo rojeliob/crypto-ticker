@@ -62,15 +62,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function() {
-        var tickerContainer = $('#ticker-container');
+        var tickerContent = $('#ticker-content');
 
         setInterval(function() {
-            tickerContainer.empty();
             $.ajax({
                 url: '{{ route("crypto-ticker") }}',
                 method: 'GET',
                 success: function(response) {
-                    tickerContent.html(response);
+                    tickerContent.find('ul').html($(response).find('ul').html());
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
